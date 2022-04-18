@@ -1,6 +1,6 @@
 ### flush
   - 영속성 컨텍스트의 변경내용을 데이터베이스에 반영
-  - flush 동작 순서
+  - flush 발생시
     - entity manager의 entity 변경 감지가 되면 수정된 entity를 쓰기 지연 SQL 저장소에 등록
     - 쓰기 지연 SQL 저장소의 쿼리를 데이터베이스에 전송(등록, 수정, 삭제)
   - 영속성 컨텍스트를 flush하는 법
