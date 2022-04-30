@@ -242,4 +242,18 @@
         delivery delivery2_ 
             on order0_.delivery_id=delivery2_.delivery_id
   ```
-    
+   
+### DTO로 바로 조회
+  - 일반적인 SQL을 사용할 때 처럼 원하는 값을 선택해서 조회할 수 있음
+  - new 명령어를 사용해서 JPQL의 결과를 DTO로 즉시 변환
+  - select 절에 원하는 데이터를 직접 선택하므로 DB -> Application 네트워크 용량 최적화 (생각보다 미비함)
+  - 레포지토리의 재사용성이 떨어지고 API 스펙에 맞춘 코드가 레포지토리에 들어가는 단점과 new 뒤에 패키지명을 풀로 써줘야해서 코드의 가독성이 떨어짐
+  ```java
+  public List<OrderQueryResponseDto> findOrderV4(OrderSearch orderSearch) {
+        return em.createQuery("select new com.jpabook.jpashop.controller.order.OrderQueryResponseDto(o.id, m.name, o.orderDate, o.status, d.address) " +
+                        " from Order o" +
+                        " join o.member m" +
+                        " join o.delivery d", OrderQueryResponseDto.class)
+                .getResultList();
+    }
+  ```
