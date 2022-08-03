@@ -26,6 +26,11 @@
           em.persist(entity);
           return entity;
         } else {
+          // merge는 select query가 한번 더 나감 (단점)
+          // 만약 데이터가 없으면 새로운 객체로 가정을하고 persist 함
+          // 데이터가 있으면 가져온 데이터를 지금 등록하려는 데이터로 덮어 씀
+          // 데이터 변경은 dirty checking(변경 감지)을 통해 해야함 (가급적이면 merge를 사용 안 하는게 낫다)
+          // merge는 영속상태의 엔티티가 영속상태를 벗어났다가 다시 영속상태가 되어야 할 때 사용하는 것
           return em.merge(entity);
         }
       }
