@@ -1,4 +1,4 @@
-### OSIV
+### OSIV (중요)
   - Hibernate에서는 Open Session In View라고 부름
   - JPA에서는 Open Entity In View라고 부름
   - spring jpa OSIV는 default true
